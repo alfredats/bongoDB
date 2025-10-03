@@ -11,11 +11,8 @@
 
 extern "C" {
 
-
-
 // init & shutdown
 int bongoDB_init();
-int bongoDB_shutdown();
 
 // crud
 int bongoDB_create(const char* key, const char* value);

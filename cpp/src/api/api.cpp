@@ -5,13 +5,10 @@
 
 // init & shutdown
 int bongoDB_init() {
-    std::cout << "here be the init call" << std::endl;
-    return BONGO_DB_ERROR;
+    BongoDB::getInstance();
+    return BONGO_DB_SUCCESS;
 };
-int bongoDB_shutdown(){
-    std::cout << "here be the shutdown call" << std::endl;
-    return BONGO_DB_ERROR;
-};
+
 
 // crud
 int bongoDB_create(const char* key, const char* value) {
@@ -33,7 +30,6 @@ int bongoDB_delete(const char* key) {
     std::cout << "here be the delete call" << std::endl;
     return BONGO_DB_ERROR;
 };
-
 
 // heartbeat
 int bongoDB_heartbeat() {
