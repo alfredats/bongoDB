@@ -19,7 +19,4 @@ int bongoDB_create(const char* key, const char* value);
 int bongoDB_read(const char* search_fmt, const char* value);
 int bongoDB_update(const char* key, const char* value);
 int bongoDB_delete(const char* key);
-
-// heartbeat
-int bongoDB_heartbeat();
 }
