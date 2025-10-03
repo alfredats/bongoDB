@@ -23,11 +23,17 @@ PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/api/api.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main/bongo.cpp
 )
+
 # Add this line to find Google Test
 find_package(GTest REQUIRED)
 
 # Add a test executable
-add_executable(UT_bongo src/test/UT_bongoMain.cpp)
+add_executable(UT_bongo) 
+target_sources(UT_bongo
+PRIVATE 
+    src/test/UT_api.cpp
+    src/test/UT_bongoMain.cpp
+)
 target_include_directories(UT_bongo PUBLIC include/main)
 
 # Link Google Test and the bongoDB library

@@ -3,7 +3,6 @@
 #include <iostream>
 #include <cstring>
 
-
 // init & shutdown
 int bongoDB_init() {
     BongoDB::getInstance();
@@ -16,11 +15,18 @@ int bongoDB_create(const char* key, const char* value) {
     return db.kv_create(std::string(key, strlen(key)), std::string(value, strlen(value)));
 };
 
-int bongoDB_read(const char* search_fmt, const char* value) {
+int bongoDB_read(const char* search_fmt, char* value, size_t buffer_size) {
     BongoDB& db = BongoDB::getInstance();
     std::string outval = "";
     int result = db.kv_read(std::string(search_fmt, strlen(search_fmt)), outval);
-    if (result == BONGO_DB_SUCCESS) { value = outval.c_str(); }
+    if (result == BONGO_DB_SUCCESS) {
+    if (outval.size() < buffer_size) {
+        std::strcpy(value, outval.c_str());
+    } else {
+        // Handle error: buffer too small
+        return BONGO_DB_BUFFER_TOO_SMALL;
+    }
+}
     return result;
 };
 
@@ -33,4 +39,4 @@ int bongoDB_update(const char* key, const char* value) {
 int bongoDB_delete(const char* key) {
     BongoDB& db = BongoDB::getInstance();
     return db.kv_delete(std::string(key, strlen(key)));
-};
+}
