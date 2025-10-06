@@ -24,6 +24,8 @@ PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main/bongo.cpp
 )
 
+target_link_libraries(bongoDB-cpp ${UUID_LIBRARIES})
+
 # Add this line to find Google Test
 find_package(GTest REQUIRED)
 
