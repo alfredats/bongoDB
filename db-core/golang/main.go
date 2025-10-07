@@ -10,6 +10,7 @@ import (
 )
 
 var globalBongo *BongoHandle
+var MAX_VALUE_SIZE = 1024 // 1KB
 
 type MessageInput struct {
 	Key   string `json:"key"`
@@ -34,6 +35,11 @@ func create_handler(w http.ResponseWriter, r *http.Request) {
 
 	if msgIn.Key == "" || msgIn.Value == "" {
 		http.Error(w, "Missing key or value", http.StatusBadRequest)
+		return
+	}
+
+	if msgIn.Value != "" && len(msgIn.Value) > MAX_VALUE_SIZE {
+		http.Error(w, fmt.Sprintf("Value exceeds maximum size of %d bytes", MAX_VALUE_SIZE), http.StatusBadRequest)
 		return
 	}
 
@@ -76,11 +82,62 @@ func read_handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func update_handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Bongo Stub Value: %d\n", BongoStub())
+	if r.Method != http.MethodPost {
+		http.Error(w, "Only POST requests, please", http.StatusMethodNotAllowed)
+		return
+	}
+
+	var msgIn MessageInput
+	if err := json.NewDecoder(r.Body).Decode(&msgIn); err != nil {
+		http.Error(w, "Invalid JSON", http.StatusBadRequest)
+		return
+	}
+
+	if msgIn.Key == "" || msgIn.Value == "" {
+		http.Error(w, "Missing key or value", http.StatusBadRequest)
+		return
+	}
+
+	if msgIn.Value != "" && len(msgIn.Value) > MAX_VALUE_SIZE {
+		http.Error(w, fmt.Sprintf("Value exceeds maximum size of %d bytes", MAX_VALUE_SIZE), http.StatusBadRequest)
+		return
+	}
+
+	result := globalBongo.Update(msgIn.Key, msgIn.Value)
+	if result != 0 {
+		http.Error(w, fmt.Sprintf("Create failed with code %d", result), http.StatusInternalServerError)
+		return
+	}
+	log.Printf("Update with k: '%s', v: '%s' successful\n", msgIn.Key, msgIn.Value)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
 }
 
 func delete_handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Bongo Stub Value: %d\n", BongoStub())
+	if r.Method != http.MethodPost {
+		http.Error(w, "Only POST requests, please", http.StatusMethodNotAllowed)
+		return
+	}
+
+	var msgIn MessageInput
+	if err := json.NewDecoder(r.Body).Decode(&msgIn); err != nil {
+		http.Error(w, "Invalid JSON", http.StatusBadRequest)
+		return
+	}
+
+	if msgIn.Key == "" {
+		http.Error(w, "Missing key", http.StatusBadRequest)
+		return
+	}
+
+	result := globalBongo.Delete(msgIn.Key)
+	if result != 0 {
+		http.Error(w, fmt.Sprintf("Create failed with code %d", result), http.StatusInternalServerError)
+		return
+	}
+	log.Printf("Delete with k: '%s' successful\n", msgIn.Key)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
 }
 
 func main() {
