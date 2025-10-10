@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.28)
+cmake_minimum_required(VERSION 3.22)
 
 # Set the project name and version
 project(bongoDB-cpp VERSION 1.0 LANGUAGES CXX)
