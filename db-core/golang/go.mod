@@ -1,4 +1,4 @@
-module github.com/alfredats/bongoDB/golang
+module github.com/alfredats/bongoDB/db-core/golang
 
 go 1.20
 
