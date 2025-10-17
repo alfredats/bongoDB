@@ -1,8 +1,14 @@
 # bongoDB
 
-bongoDB is a project consisting of multiple components primarily written in Go and C++. It includes a core database engine implemented in C++ and Go, as well as a router component written in Go. The project is designed to provide a high-performance, scalable database solution.
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣶⣄⣀⡀  
+⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣦⣄⣀⡀⣠⣾⡇  
+⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇  
+⠀⠀⠀⠀⢀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⢿⣿⣿⡇  
+⠀⣶⣿⣦⣜⣿⣿⣿⡟⠻⣿⣿⣿⣿⣿⣿⣿⡿⢿⡏⣴⣺⣦⣙⣿⣷⣄  
+⠀⣯⡇⣻⣿⣿⣿⣿⣷⣾⣿⣬⣥⣭⣽⣿⣿⣧⣼⡇⣯⣇⣹⣿⣿⣿⣿⣧  
+⠀⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠸⣿⣿⣿⣿⣿⣿⣿⣷  
 
-## High 
+bongoDB is a project consisting of multiple components primarily written in Go and C++. It includes a core database engine implemented in C++ and Go, as well as a router component written in Go. The project is designed to provide a high-performance, scalable database solution.
 
 ## Project Structure
 
@@ -11,10 +17,7 @@ bongoDB is a project consisting of multiple components primarily written in Go a
   - `golang/`: Go bindings and related code for the core engine
 - `db-router/`: Router component implemented in Go
 - `build/`: Build artifacts and output
-- Root files:
-  - `.gitignore`: Git ignore rules
-  - `CMakeLists.txt`: Build configuration for C++ components
-  - Various Go modules and source files for building and testing
+- `CMakeLists.txt`: Build configuration 
 
 ## Features
 
